@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fwh-gibraltar"
+version = "0.1.0"
+description = "The Hollow Mountain — measuring what OpenStreetMap cannot see, in Gibraltar"
+requires-python = ">=3.11"
+dependencies = ["facetwork>=0.31.0", "pyproj>=3.6"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.entry-points."facetwork.domains"]
+gibraltar = "gibraltar:domain"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+gibraltar = ["ffl/*.ffl"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

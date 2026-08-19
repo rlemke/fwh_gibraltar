@@ -1,0 +1,81 @@
+/** The Hollow Mountain — measuring what OpenStreetMap cannot see.
+  *
+  * Gibraltar holds roughly 55 km of tunnels inside a 6.7 km² rock, cut between
+  * 1782 and 1967. Almost all of it is military and sealed, so a public map
+  * cannot hold it — and because the true length is PUBLISHED, the omission can
+  * be measured rather than guessed at.
+  *
+  * That inverts the usual shape of an OSM workflow. Every other map in this
+  * fleet renders what OSM contains; this one renders what it is missing, in the
+  * one territory small enough and documented enough for the missing part to be
+  * bounded. Sources for every published figure: docs/sources.md.
+  *
+  * The whole survey reads a 1 MB extract from the local planet split — no
+  * Overpass, no rate limit, no network at measurement time.
+  */
+namespace gibraltar {
+
+    /** Measure the mapped network, the mapped tunnels, and the surface evidence
+      * of the rest (cave entrances, bunkers, batteries).
+      *
+      * `pbf` empty resolves `europe/gibraltar-latest.osm.pbf` from
+      * FW_OSM_LOCAL_EXTRACTS. Returns both the statistics and the geometry, so
+      * the render step needs no second pass over the extract. */
+    event facet Survey(
+        pbf: String = "",
+        out_dir: String = "gibraltar-out"
+    ) => (
+        stats_path: String,
+        tunnel_km: Double,
+        mapped_pct: Double,
+        unmapped_km: Double,
+        public_road_km: Double,
+        osm_vs_official_roads: Double,
+        feature_count: Int,
+        stats: Json,
+        features: Json
+    ) with Effect(kind = "io") with Cost(tier = "cheap")
+
+    /** Draw it: a self-contained page — inline SVG, no CDN, no tile server.
+      *
+      * Deliberate. The subject is an ABSENCE; a page that needed a basemap to be
+      * legible would be leaning on someone else's data at the exact moment it
+      * claims a gap. */
+    event facet RenderMap(
+        stats: Json,
+        features: Json,
+        out_dir: String = "gibraltar-out",
+        title: String = "The Hollow Mountain"
+    ) => (
+        map_path: String,
+        feature_count: Int
+    ) with Effect(kind = "io") with Cost(tier = "cheap")
+
+    /** Survey then draw. */
+    workflow HollowMountain(
+        pbf: String = "",
+        out_dir: String = "gibraltar-out",
+        title: String = "The Hollow Mountain"
+    ) => (
+        map_path: String,
+        stats_path: String,
+        mapped_pct: Double,
+        unmapped_km: Double
+    ) andThen {
+        surveyed = Survey(pbf = $.pbf, out_dir = $.out_dir)
+
+        drawn = RenderMap(
+            stats = surveyed.stats,
+            features = surveyed.features,
+            out_dir = $.out_dir,
+            title = $.title
+        )
+
+        yield HollowMountain(
+            map_path = drawn.map_path,
+            stats_path = surveyed.stats_path,
+            mapped_pct = surveyed.mapped_pct,
+            unmapped_km = surveyed.unmapped_km
+        )
+    }
+}

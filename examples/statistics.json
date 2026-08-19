@@ -1,0 +1,827 @@
+{
+  "road_km": 140.91,
+  "path_km": 66.05,
+  "other_km": 0.73,
+  "tunnel_km": 6.63,
+  "tunnel_road_km": 5.88,
+  "published_tunnel_km": 55.0,
+  "mapped_pct": 12.0,
+  "unmapped_km": 48.4,
+  "tunnel_vs_road_ratio_published": 0.39,
+  "ways": {
+    "service": 932,
+    "footway": 488,
+    "residential": 192,
+    "steps": 178,
+    "pedestrian": 168,
+    "primary": 115,
+    "secondary": 106,
+    "tertiary": 92,
+    "path": 83,
+    "trunk": 74,
+    "unclassified": 60,
+    "cycleway": 25,
+    "busway": 17,
+    "trunk_link": 12,
+    "track": 10,
+    "primary_link": 6,
+    "tertiary_link": 2,
+    "living_street": 2,
+    "secondary_link": 2,
+    "services": 1
+  },
+  "km_by_class": {
+    "service": 75.25,
+    "secondary": 14.32,
+    "steps": 5.99,
+    "trunk": 6.03,
+    "tertiary": 8.53,
+    "residential": 20.18,
+    "primary": 8.47,
+    "unclassified": 7.45,
+    "footway": 37.27,
+    "path": 7.95,
+    "pedestrian": 9.32,
+    "tertiary_link": 0.15,
+    "primary_link": 0.1,
+    "cycleway": 3.92,
+    "living_street": 0.16,
+    "track": 1.61,
+    "secondary_link": 0.06,
+    "busway": 0.47,
+    "trunk_link": 0.21,
+    "services": 0.26
+  },
+  "public_road_km": 65.66,
+  "official_road_km": 29.0,
+  "osm_vs_official_roads": 2.26,
+  "tunnel_vs_official_roads": 1.9,
+  "named_tunnels": [
+    {
+      "name": "Dudley Ward Way",
+      "metres": 693,
+      "highway": "secondary",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Keightley Road",
+      "metres": 23,
+      "highway": "secondary",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Keightley Way",
+      "metres": 405,
+      "highway": "secondary",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 65,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-2"
+    },
+    {
+      "name": "Keightley Road",
+      "metres": 32,
+      "highway": "secondary",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "Brian Navarro Way",
+      "metres": 105,
+      "highway": "secondary",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Landport Tunnel",
+      "metres": 35,
+      "highway": "pedestrian",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 14,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Gavino's Court",
+      "metres": 13,
+      "highway": "path",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Williams way",
+      "metres": 46,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Mediterranean Steps",
+      "metres": 29,
+      "highway": "path",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 10,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "AROW Street Tunnel",
+      "metres": 39,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-2"
+    },
+    {
+      "name": "Admiralty tunnel",
+      "metres": 957,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-2"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 24,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-2"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 37,
+      "highway": "path",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 25,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 21,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 41,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 19,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 38,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 13,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Williams way",
+      "metres": 30,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Great North Road",
+      "metres": 91,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 31,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 21,
+      "highway": "unclassified",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 9,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Green Lane",
+      "metres": 24,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "Green Lane",
+      "metres": 30,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "Willis\u2019s Road",
+      "metres": 22,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 22,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 23,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "Kingsway",
+      "metres": 61,
+      "highway": "trunk",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Kingsway",
+      "metres": 69,
+      "highway": "trunk",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 50,
+      "highway": "unclassified",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 17,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 55,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "Library Gardens",
+      "metres": 13,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 39,
+      "highway": "trunk",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "Kingsway Tunnel",
+      "metres": 352,
+      "highway": "trunk",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 19,
+      "highway": "residential",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Wellington Front",
+      "metres": 14,
+      "highway": "pedestrian",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 8,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 10,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 15,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 15,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 9,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 12,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 6,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 11,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Library Gardens",
+      "metres": 10,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 26,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 11,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 9,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 11,
+      "highway": "path",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 3,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 8,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 13,
+      "highway": "footway",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 6,
+      "highway": "footway",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 15,
+      "highway": "service",
+      "tunnel": "covered",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 34,
+      "highway": "service",
+      "tunnel": "covered",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 14,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 29,
+      "highway": "pedestrian",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 30,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Kingsway Tunnel",
+      "metres": 360,
+      "highway": "trunk",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 80,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 12,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "Fosse Way",
+      "metres": 46,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Ragged Staff Magazine",
+      "metres": 659,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Winston Churchill Avenue",
+      "metres": 14,
+      "highway": "trunk",
+      "tunnel": "building_passage",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 14,
+      "highway": "trunk_link",
+      "tunnel": "building_passage",
+      "layer": "-1"
+    },
+    {
+      "name": "Winston Churchill Avenue",
+      "metres": 13,
+      "highway": "trunk",
+      "tunnel": "building_passage",
+      "layer": "-1"
+    },
+    {
+      "name": "Winston Churchill Avenue",
+      "metres": 8,
+      "highway": "trunk",
+      "tunnel": "building_passage",
+      "layer": "-1"
+    },
+    {
+      "name": "Winston Churchill Avenue",
+      "metres": 8,
+      "highway": "trunk",
+      "tunnel": "building_passage",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 11,
+      "highway": "trunk",
+      "tunnel": "covered",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 108,
+      "highway": "service",
+      "tunnel": "covered",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 109,
+      "highway": "service",
+      "tunnel": "covered",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 47,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 9,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 10,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 18,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 8,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Kingsway Tunnel",
+      "metres": 285,
+      "highway": "cycleway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Kingsway Tunnel",
+      "metres": 27,
+      "highway": "cycleway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Kingsway Tunnel",
+      "metres": 13,
+      "highway": "cycleway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 74,
+      "highway": "cycleway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Parking Puerta de Gibraltar",
+      "metres": 142,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 6,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Parking Puerta de Gibraltar",
+      "metres": 8,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 10,
+      "highway": "trunk",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Parking Puerta de Gibraltar",
+      "metres": 39,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 13,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 12,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 34,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 74,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 30,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 123,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 11,
+      "highway": "trunk",
+      "tunnel": "covered",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 2,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Winston Churchill Avenue",
+      "metres": 11,
+      "highway": "trunk",
+      "tunnel": "building_passage",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 42,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 40,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 23,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 24,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 25,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 24,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 24,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    }
+  ],
+  "underground_evidence": {
+    "historic=fort": 84,
+    "natural=cave_entrance": 28,
+    "military=bunker": 19,
+    "military=base": 4,
+    "military=range": 4,
+    "military=office": 3,
+    "military=airfield": 2,
+    "military=training_area": 2,
+    "military=hospital": 2,
+    "military=exclusion_zone": 2,
+    "military=obstacle_course": 2,
+    "military=checkpoint": 1,
+    "historic=memorial": 1,
+    "military=trench": 1
+  },
+  "area_km2": 6.7
+}
