@@ -4,7 +4,16 @@ Every published figure this project compares OSM against, and where it comes
 from. The whole result is a comparison, so a wrong number here is a wrong
 result — each entry says exactly what it supports.
 
-Links were retrieved 2026-08-19.
+Two places, and they are not symmetrical. **Gibraltar has a published tunnel
+total**, so the omission can be stated as a percentage. **Jersey does not** —
+and the reason it does not is itself sourced below, because that absence is the
+Jersey map's entire subject.
+
+Links were retrieved 2026-08-19 (Gibraltar) and 2026-08-20 (Jersey).
+
+---
+
+# Gibraltar
 
 ## The tunnel total — 55 km / 34 miles
 
@@ -78,3 +87,83 @@ OpenStreetMap contributors, ODbL. Read from a **locally hosted extract**
 (`europe/gibraltar-latest.osm.pbf`, 1 MB) produced by this deployment's own
 planet split — no Overpass call, no rate limit, no upstream dependency at
 measurement time.
+
+---
+
+# Jersey
+
+## The missing total — why there is no percentage
+
+| | |
+|---|---|
+| used for | `tunnel_km_published = None`, and the refusal to print a percentage |
+| source | [Hohlgangsanlage tunnels, Jersey — Wikipedia](https://en.wikipedia.org/wiki/Hohlgangsanlage_tunnels,_Jersey) |
+| quote | "In all, 19–25 storage tunnels were planned but, due to the almost wholesale destruction of primary source material before the surrender, the exact number is unknown" |
+
+That sentence is the finding. No source consulted gives a combined length for
+Jersey's tunnels, and none gives per-site lengths except in passing (Ho12: "only
+about 60 yards of rubble had been excavated"). A percentage would require
+choosing a denominator that nobody has published, so the survey reports `None`
+and the page says "unknown".
+
+This is a different situation from Gibraltar's, where the ground truth is known
+and the map is merely short of it. Here the size of the gap is not
+merely unmeasured but **unrecoverable**, because the records were destroyed on
+purpose in 1945.
+
+## The tunnels themselves
+
+- **[Hohlgangsanlage tunnels, Jersey — Wikipedia](https://en.wikipedia.org/wiki/Hohlgangsanlage_tunnels,_Jersey)**
+  — *Hohlgangsanlage* ("cave passage installation"), abbreviated **Ho** and
+  numbered Ho1 upward. Construction began in 1941 following Hitler's October
+  1941 order to fortify the Channel Islands, and stopped at the surrender on
+  **9 May 1945**. Only **Ho5** was ever completed.
+- **Ho8**, later the **German Underground Hospital** (today Jersey War
+  Tunnels) — over **1,000 m (1,100 yd)** excavated, **33.5 m** below the
+  surface, intended for **500** wounded. This is the one complex OSM holds in
+  any detail, and it accounts for roughly a third of the island's mapped tunnel.
+- Dug by fortress construction battalions, a specialist mining company
+  (4/Gesteinsbohr-Kompanie of Bataillon 77), the Reichsarbeitsdienst and
+  **Organisation Todt**, using **forced labourers** — French North Africans,
+  Russians, Spaniards and Ukrainians. Around **5,000** were involved in the Ho8
+  works.
+
+## The occupation and its fortifications
+
+- **[German occupation of the Channel Islands — Wikipedia](https://en.wikipedia.org/wiki/German_occupation_of_the_Channel_Islands)**
+  — the only British territory occupied by Nazi Germany, from 1 July 1940 to
+  9 May 1945. The islands were fortified far beyond their strategic worth as
+  part of the **Atlantic Wall**.
+- **[Jersey War Tunnels](https://www.jerseywartunnels.com/)** (the Ho8 site
+  museum) and **[Channel Islands Occupation Society (Jersey)](https://www.ciosjersey.org.uk/)**,
+  which restores and opens bunkers — the surface fortifications that OSM maps so
+  thoroughly.
+
+## The figures used
+
+| | |
+|---|---|
+| area | 118.2 km² |
+| tunnel total | **none published** — see above |
+| road total | none used; Jersey's map makes no OSM-vs-official road claim |
+
+Jersey's page deliberately omits the road comparison that Gibraltar's makes. An
+official road figure was not established from a source of the same quality, and
+a comparison is only worth as much as its denominator.
+
+## The map data
+
+OpenStreetMap contributors, ODbL. Read from a **locally hosted extract**
+(`europe/jersey-latest.osm.pbf`, 2.3 MB) produced by this deployment's own
+planet split — no Overpass call, no rate limit, no upstream dependency at
+measurement time.
+
+## A measurement caveat, recorded
+
+OSM's 1.97 km of Jersey tunnel way includes **Route du Fort three times**: a
+250.2 m trunk carriageway plus a 250.4 m footway for each pavement, all through
+one ~250 m bore. The survey reports that separately (`tunnel_km_distinct`,
+1.47 km) rather than silently subtracting it, because way length is the
+reproducible measurement and the correction is an estimate. Ho8's eight footway
+tunnels are **not** treated this way — they are a genuine branching complex with
+no road among them.

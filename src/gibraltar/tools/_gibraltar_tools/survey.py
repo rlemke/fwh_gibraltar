@@ -63,6 +63,7 @@ class SurveyError(RuntimeError):
 
 @dataclass
 class Survey:
+    place: Any = None
     road_km: float = 0.0
     path_km: float = 0.0
     other_km: float = 0.0
@@ -85,31 +86,89 @@ class Survey:
                    if k in ROAD_VALUES and k != "service")
 
     @property
-    def mapped_fraction(self) -> float:
-        """Mapped tunnel length as a fraction of the published total."""
-        return self.tunnel_km / TUNNEL_KM_PUBLISHED if TUNNEL_KM_PUBLISHED else 0.0
+    def pavement_duplicate_km(self) -> float:
+        """Footway tunnels that share a bore with a road tunnel of the same name.
+
+        A road tunnel with a pavement each side is three OSM ways through one
+        hole in the ground, so summing way length counts the same bore three
+        times. Jersey's Route du Fort is exactly that: a 250.2 m trunk plus two
+        250.4 m footways — 0.75 km of "mapped tunnel" for a 250 m tunnel.
+
+        The test is deliberately narrow rather than a general overlap
+        heuristic: same name, one road-class way, and a path-class way within
+        15% of its length. Ho8's tunnels are eight footways with no road among
+        them — a genuine branching network — and a bbox-overlap rule would have
+        collapsed those into one passage, destroying real length. This rule
+        leaves them alone.
+
+        Reported alongside the headline, never subtracted from it silently: it
+        is an estimate of double-counting, and the raw way total is the
+        reproducible measurement.
+        """
+        by_name: dict[str, list[dict]] = {}
+        for t in self.tunnels:
+            if t["name"] != "(unnamed)":
+                by_name.setdefault(t["name"], []).append(t)
+        dup_m = 0
+        for ways in by_name.values():
+            roads = [w for w in ways if w["highway"] in ROAD_VALUES]
+            if not roads:
+                continue
+            longest = max(w["metres"] for w in roads)
+            for w in ways:
+                if w["highway"] in PATH_VALUES and abs(w["metres"] - longest) <= 0.15 * longest:
+                    dup_m += w["metres"]
+        return dup_m / 1000.0
+
+    @property
+    def published_tunnel_km(self) -> float | None:
+        p = getattr(self.place, "tunnel_km_published", None)
+        return TUNNEL_KM_PUBLISHED if p is None and self.place is None else p
+
+    @property
+    def mapped_fraction(self) -> float | None:
+        """Mapped tunnel length as a fraction of the published total.
+
+        ``None`` where no total was ever published — Jersey's records were
+        destroyed before the 1945 surrender. Returning 0.0, or picking a
+        plausible denominator, would turn "unknown" into a number, and the
+        difference between unknown and unmapped is the whole point.
+        """
+        total = self.published_tunnel_km
+        return self.tunnel_km / total if total else None
 
     def as_dict(self) -> dict[str, Any]:
+        frac = self.mapped_fraction
+        official = getattr(self.place, "road_km_official", None) if self.place else ROAD_KM_OFFICIAL
+        pub = self.published_tunnel_km
         return {
+            "place": getattr(self.place, "key", "gibraltar"),
+            "place_name": getattr(self.place, "name", "Gibraltar"),
+            "title": getattr(self.place, "title", "The Hollow Mountain"),
+            "blurb": getattr(self.place, "blurb", ""),
+            "notes": list(getattr(self.place, "notes", [])),
             "road_km": round(self.road_km, 2),
             "path_km": round(self.path_km, 2),
             "other_km": round(self.other_km, 2),
             "tunnel_km": round(self.tunnel_km, 2),
             "tunnel_road_km": round(self.tunnel_road_km, 2),
-            "published_tunnel_km": TUNNEL_KM_PUBLISHED,
-            "mapped_pct": round(100 * self.mapped_fraction, 1),
-            "unmapped_km": round(TUNNEL_KM_PUBLISHED - self.tunnel_km, 1),
-            "tunnel_vs_road_ratio_published": round(TUNNEL_KM_PUBLISHED / self.road_km, 2)
-            if self.road_km else None,
+            "pavement_duplicate_km": round(self.pavement_duplicate_km, 2),
+            "tunnel_km_distinct": round(self.tunnel_km - self.pavement_duplicate_km, 2),
+            "published_tunnel_km": pub,
+            "mapped_pct": round(100 * frac, 1) if frac is not None else None,
+            "unmapped_km": round(pub - self.tunnel_km, 1) if pub else None,
+            "tunnel_vs_road_ratio_published": round(pub / self.road_km, 2)
+            if (pub and self.road_km) else None,
             "ways": self.ways,
             "km_by_class": {k: round(v, 2) for k, v in self.km_by_class.items()},
             "public_road_km": round(self.public_road_km, 2),
-            "official_road_km": ROAD_KM_OFFICIAL,
-            "osm_vs_official_roads": round(self.public_road_km / ROAD_KM_OFFICIAL, 2),
-            "tunnel_vs_official_roads": round(TUNNEL_KM_PUBLISHED / ROAD_KM_OFFICIAL, 2),
+            "official_road_km": official,
+            "osm_vs_official_roads": round(self.public_road_km / official, 2) if official else None,
+            "tunnel_vs_official_roads": round(pub / official, 2) if (pub and official) else None,
             "named_tunnels": self.tunnels,
             "underground_evidence": self.underground_evidence,
-            "area_km2": AREA_KM2,
+            "area_km2": getattr(self.place, "area_km2", AREA_KM2),
+            "tunnel_per_km2": round(self.tunnel_km / getattr(self.place, "area_km2", AREA_KM2), 3),
         }
 
 
@@ -133,8 +192,9 @@ def _geodesic_km(coords: list[list[float]]) -> float:
     return geod.line_length(lons, lats) / 1000.0
 
 
-def survey(pbf: str, *, osmium_bin: str = "osmium", keep_geometry: bool = True) -> Survey:
-    """Measure one Gibraltar extract."""
+def survey(pbf: str, *, place: Any = None, osmium_bin: str = "osmium",
+           keep_geometry: bool = True) -> Survey:
+    """Measure one extract against a place's published ground truth."""
     src = Path(pbf)
     if not src.exists():
         raise SurveyError(f"no such extract: {src}")
@@ -142,7 +202,7 @@ def survey(pbf: str, *, osmium_bin: str = "osmium", keep_geometry: bool = True) 
         raise SurveyError(f"osmium not found ({osmium_bin})")
 
     staging = Path(tempfile.mkdtemp(prefix="gib-survey-"))
-    out = Survey()
+    out = Survey(place=place)
     try:
         # Pass 1 — the network.
         hw_pbf = staging / "hw.osm.pbf"
@@ -203,7 +263,8 @@ def survey(pbf: str, *, osmium_bin: str = "osmium", keep_geometry: bool = True) 
         ev_seq = staging / "ev.geojsonseq"
         _run([osmium_bin, "tags-filter", "--overwrite", "-o", str(ev_pbf), str(src),
               "nwr/natural=cave_entrance", "nwr/military", "nwr/historic=fort",
-              "nwr/historic=battery", "nwr/man_made=adit"])
+              "nwr/historic=battery", "nwr/man_made=adit", "nwr/building=bunker",
+              "nwr/historic=bunker"])
         _run([osmium_bin, "export", "-f", "geojsonseq", "-o", str(ev_seq),
               "--overwrite", str(ev_pbf)])
         ev: dict[str, int] = {}
@@ -214,7 +275,7 @@ def survey(pbf: str, *, osmium_bin: str = "osmium", keep_geometry: bool = True) 
             feat = json.loads(line)
             props = feat.get("properties") or {}
             geom = feat.get("geometry") or {}
-            for key in ("natural", "military", "historic", "man_made"):
+            for key in ("natural", "military", "historic", "man_made", "building"):
                 val = props.get(key)
                 if val:
                     label = f"{key}={val}"

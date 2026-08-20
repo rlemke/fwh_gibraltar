@@ -1,24 +1,31 @@
-# fwh_gibraltar — The Hollow Mountain
+# fwh_gibraltar — Measuring what OpenStreetMap cannot see
 
-**Measuring what OpenStreetMap cannot see.**
+Two territories whose underground is far larger than their surface, and which
+differ in the one way that decides what a measurement is allowed to say.
 
-Gibraltar holds roughly **55 km of tunnels inside a 6.7 km² rock**, cut between
-1782 and 1967. Almost all of it is military and sealed, so a public map cannot
-hold it. Because the true length is *published*, the omission can be **measured**
-rather than guessed at.
+| | Gibraltar | Jersey |
+|---|---|---|
+| area | 6.7 km² | 118.2 km² |
+| tunnels, **published** | **55 km** | **no total exists** |
+| tunnels, in OSM | 6.63 km | 1.97 km (1.47 km of distinct bore) |
+| what can be said | OSM holds **12%** | **nothing can be said** — see below |
 
-That inverts the usual shape of an OSM project. Every other map in this fleet
-renders what OSM contains. This one renders what it is missing — in the one
-territory small enough, and documented enough, for the missing part to be
-bounded.
+Gibraltar is the rare place where OSM's *omission* is bounded: the true length
+is published, so the gap can be measured rather than guessed at. Jersey is the
+rarer one, where the omission cannot even be sized — the German occupation
+destroyed the records before the 1945 surrender, so not even the **number** of
+tunnel complexes is known.
 
 ```bash
 fw ffl run src/gibraltar/ffl/gibraltar.ffl --workflow gibraltar.HollowMountain
+fw ffl run src/gibraltar/ffl/gibraltar.ffl --workflow gibraltar.OccupiedIsland
 # or, without a runner:
-tools/survey-gibraltar.sh -o out/
+src/gibraltar/tools/survey-gibraltar.sh --place jersey -o out/
 ```
 
-## The result
+---
+
+## Gibraltar — *The Hollow Mountain*
 
 | | |
 |---|---|
@@ -35,10 +42,10 @@ Longest mapped tunnels: **Admiralty tunnel 957 m**, Dudley Ward Way 693 m,
 Ragged Staff Magazine 659 m, Keightley Way 405 m, Kingsway Tunnel (3 ways,
 997 m combined).
 
-## Two gaps, in opposite directions
+### Two gaps, in opposite directions
 
-The interesting part is that OSM is *both* far short and far over, and neither
-is sloppiness — both are definitional.
+OSM is *both* far short and far over, and neither is sloppiness — both are
+definitional.
 
 - **Tunnels: OSM has 12%.** The missing 48 km is classified, sealed, or both.
 - **Roads: OSM has 2.26× the official figure.** Gibraltar's published road
@@ -52,13 +59,7 @@ the tunnels are *"nearly twice the length of its entire road network"*: 55 ÷ 29
 where the same ratio is 0.84. Same territory, same tunnels, different
 denominator.
 
-**A measurement mistake worth recording**, because it nearly became the headline:
-the first pass measured `w/highway` as one number and got **207.69 km**. On a
-rock climbed by the Mediterranean Steps, footways, steps and paths are 66 km of
-that. Comparing it to a published *road* figure would have overstated the
-network sevenfold. Hence the classification, and a test that pins it.
-
-## Why the gap cannot be closed, and why that is the point
+### Why the gap cannot be closed, and why that is the point
 
 **Operation Tracer.** In 1941–42 a chamber roughly 45 × 16 × 8 feet was cut into
 the Rock against the German plan to take Gibraltar. Six volunteers — a leader,
@@ -72,40 +73,123 @@ A chamber that took half a century to find, in a territory of 6.7 km², is why 4
 km of tunnel is absent from a public map — and why that absence is a finding
 rather than a defect.
 
-Full citations, with what each figure supports: **[docs/sources.md](docs/sources.md)**.
+---
 
-## The map
+## Jersey — *The Island With No Denominator*
 
-`hollow-mountain.html` is **self-contained** — inline SVG, no CDN, no tile
-server, no JavaScript library. That is deliberate: the subject is an *absence*,
-and a page that needed someone else's basemap to be legible would be leaning on
-external data at the moment it claims a gap. It works offline, forever.
+Building the second map is where the method broke, usefully.
+
+Jersey should have been Gibraltar again: an occupied island, tunnelled through
+by an army, mapped by volunteers. But Gibraltar's headline needs a published
+total to divide by, and **Jersey has none**. The
+[Wikipedia article on the Hohlgangsanlage tunnels](https://en.wikipedia.org/wiki/Hohlgangsanlage_tunnels,_Jersey)
+says why:
+
+> In all, 19–25 storage tunnels were planned but, due to the almost wholesale
+> destruction of primary source material before the surrender, the exact number
+> is unknown.
+
+Not the length — the **number**. So this survey returns `None`, and the page
+says "unknown". Printing 0%, or dividing by a plausible-looking estimate, would
+convert *nobody knows* into a measurement, and the difference between "unmapped"
+and "unknowable" is the only thing Jersey has to say that Gibraltar doesn't.
+
+That constraint reaches into the type signature: `mapped_pct` is **not** a return
+of the `Survey` facet. A field that cannot exist for some inputs has no business
+in a signature that promises it for all of them, so callers get
+`has_denominator` and a `summary` sentence instead of a number with a hole in it.
+
+### What is mapped instead
+
+| | |
+|---|---|
+| tunnel ways, in OSM | **1.97 km** |
+| less shared bores | **1.47 km** |
+| of which Ho8 | **522 m** |
+| bunkers, in OSM | **397** |
+| road, in OSM | 945.58 km |
+| tunnel per km² | 0.017 (Gibraltar: 0.99) |
+
+**The surface is mapped exhaustively and the underground barely at all.** OSM
+holds 325 `military=bunker`, 59 `building=bunker` and 13 `historic=bunker`,
+many carrying their German designations — *"631 bunker"*, *"634 bunker -
+6-Sch. Mach.Gun"*, *"606 bunker: searchlight"*. Everything you can stand next
+to has been recorded. Almost nothing that runs *between* them has.
+
+One complex accounts for a third of the island's mapped tunnel: **Ho8**, the
+German Underground Hospital, of which OSM has 522 m of passage. Over **1,000 m**
+was excavated there, 33.5 m below the surface, intended for 500 wounded — and it
+was one of 19–25 planned, of which only **Ho5** was ever finished. Dug by
+Organisation Todt and fortress construction battalions using forced labourers
+from North Africa, Russia, Spain and Ukraine.
+
+### A double-count worth recording
+
+Jersey's 1.97 km counts **Route du Fort three times**: a 250.2 m trunk
+carriageway plus a 250.4 m footway for each pavement, all through one ~250 m
+bore. The survey reports the correction separately (`tunnel_km_distinct`) rather
+than silently subtracting it — way length is the reproducible measurement, the
+correction is an estimate.
+
+The rule is deliberately narrow: same name, one road-class way, one path-class
+way within 15% of its length. A general bbox-overlap heuristic would have
+collapsed **Ho8's eight footway tunnels** into a single passage and destroyed
+real length; requiring a road in the group means it never fires there. Both
+behaviours are pinned by tests.
+
+---
+
+## The maps
+
+`hollow-mountain.html` and `jersey.html` are **self-contained** — inline SVG, no
+CDN, no tile server, no JavaScript library. That is deliberate: the subject is an
+*absence*, and a page that needed someone else's basemap to be legible would be
+leaning on external data at the moment it claims a gap. They work offline,
+forever.
 
 Grey is mapped road, red is mapped tunnel, and the dots are where the
-underground reaches daylight — cave entrances, bunkers, batteries. The red is
-what 12% looks like.
+underground reaches daylight — cave entrances, bunkers, batteries. On Gibraltar
+the red is what 12% looks like. On Jersey the purple is what an exhaustively
+mapped surface looks like over an unmapped, unmeasurable underneath.
+
+The canvas follows the data: Gibraltar is 1.5 × 5 km and renders portrait,
+Jersey 14 × 8 km and renders landscape.
 
 ## How it runs
 
 Two facets, `gibraltar.Survey` → `gibraltar.RenderMap`, chained by
-`HollowMountain`. The survey reads a **1 MB extract from this deployment's own
-planet split** (`FW_OSM_LOCAL_EXTRACTS`), so there is no Overpass call, no rate
-limit and no network at measurement time. Verified end to end through the
-runtime: survey 0.2s, render 0.3s, 1,775 features drawn.
+`TunnelSurvey(place=…)`; `HollowMountain` and `OccupiedIsland` are the two
+named entry points. The survey reads a small extract from **this deployment's
+own planet split** (`FW_OSM_LOCAL_EXTRACTS`) — 0.8 MB for Gibraltar, 2.3 MB for
+Jersey — so there is no Overpass call, no rate limit and no network at
+measurement time. Both verified end to end through the runtime.
 
 Lengths are geodesic (`pyproj.Geod`). Gibraltar sits at 36°N, where a degree of
 longitude is 0.81 of one at the equator; planar arithmetic would inflate
 east-west lengths by about 24%.
 
+**A measurement mistake worth recording**, because it nearly became the
+headline: the first Gibraltar pass measured `w/highway` as one number and got
+**207.69 km**. On a rock climbed by the Mediterranean Steps, footways, steps and
+paths are 66 km of that. Comparing it to a published *road* figure would have
+overstated the network sevenfold. Hence the classification, and a test that pins
+it. The Route du Fort double-count above is the same error in miniature, caught
+the same way.
+
+Adding a place means publishing its ground truth in
+[`docs/sources.md`](docs/sources.md) and adding an entry to
+`_gibraltar_tools/places.py`. A place with no sourced figures cannot produce a
+result — except in Jersey's sense, where the absence is sourced too.
+
 ## Tests
 
 ```bash
-FW_OSM_LOCAL_EXTRACTS=/path/to/extracts python -m pytest tests -q   # 9 tests
+FW_OSM_LOCAL_EXTRACTS=/path/to/extracts python -m pytest tests -q   # 17 tests
 ```
 
-The classification, the geodesic assumption, the escaping and the
-self-containment are pinned. The test that needs a real extract skips itself
-without one.
+The classification, the geodesic assumption, the pavement rule, the escaping,
+the self-containment, and above all **the refusal to invent a denominator** are
+pinned. Tests needing a real extract skip themselves without one.
 
 ## Licence
 

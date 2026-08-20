@@ -1,0 +1,360 @@
+{
+  "place": "jersey",
+  "place_name": "Jersey",
+  "title": "The Island With No Denominator",
+  "blurb": "Between 1941 and May 1945 the German occupation drove tunnel complexes into Jersey with forced labour. Nobody knows how much. The records were destroyed before the surrender, so unlike Gibraltar there is no total to measure OpenStreetMap against.",
+  "notes": [
+    "19\u201325 storage tunnels were planned; the exact number is unknown because primary sources were destroyed before the surrender.",
+    "Only one complex, Ho5, was ever completed.",
+    "Ho8 alone \u2014 later the German Underground Hospital \u2014 had over 1,000 m excavated, 33.5 m below the surface, for 500 wounded.",
+    "Dug by Organisation Todt, fortress construction battalions and a specialist mining battalion, using forced labourers from North Africa, Russia, Spain and Ukraine."
+  ],
+  "road_km": 945.58,
+  "path_km": 394.1,
+  "other_km": 2.67,
+  "tunnel_km": 1.97,
+  "tunnel_road_km": 0.84,
+  "pavement_duplicate_km": 0.5,
+  "tunnel_km_distinct": 1.47,
+  "published_tunnel_km": null,
+  "mapped_pct": null,
+  "unmapped_km": null,
+  "tunnel_vs_road_ratio_published": null,
+  "ways": {
+    "service": 3065,
+    "footway": 1895,
+    "residential": 746,
+    "unclassified": 745,
+    "track": 462,
+    "secondary": 413,
+    "primary": 264,
+    "living_street": 255,
+    "path": 215,
+    "steps": 200,
+    "tertiary": 118,
+    "cycleway": 88,
+    "trunk": 77,
+    "pedestrian": 51,
+    "trunk_link": 8,
+    "bridleway": 8,
+    "raceway": 8,
+    "primary_link": 5,
+    "construction": 4,
+    "tertiary_link": 2,
+    "busway": 1,
+    "bus_stop": 1
+  },
+  "km_by_class": {
+    "footway": 235.75,
+    "unclassified": 218.38,
+    "secondary": 131.78,
+    "primary": 72.96,
+    "cycleway": 25.8,
+    "trunk": 10.92,
+    "path": 34.41,
+    "service": 265.86,
+    "tertiary": 45.49,
+    "tertiary_link": 0.03,
+    "trunk_link": 0.67,
+    "track": 86.82,
+    "living_street": 103.89,
+    "steps": 4.04,
+    "residential": 95.47,
+    "pedestrian": 3.63,
+    "busway": 0.02,
+    "primary_link": 0.13,
+    "bridleway": 3.65,
+    "bus_stop": 0.02,
+    "construction": 1.01,
+    "raceway": 1.62
+  },
+  "public_road_km": 679.73,
+  "official_road_km": null,
+  "osm_vs_official_roads": null,
+  "tunnel_vs_official_roads": null,
+  "named_tunnels": [
+    {
+      "name": "(unnamed)",
+      "metres": 7,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "Route du Fort",
+      "metres": 250,
+      "highway": "trunk",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "to Fort Regent",
+      "metres": 37,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 52,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 13,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 75,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 4,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "Route de la Liberation",
+      "metres": 75,
+      "highway": "trunk",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Route de la Liberation",
+      "metres": 76,
+      "highway": "trunk",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Tunnels Ho8",
+      "metres": 89,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Tunnels Ho8",
+      "metres": 148,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Tunnels Ho8",
+      "metres": 56,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Tunnels Ho8",
+      "metres": 128,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Tunnels Ho8",
+      "metres": 50,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 11,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Tunnels Ho8",
+      "metres": 18,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Tunnels Ho8",
+      "metres": 33,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 27,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 8,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 9,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 8,
+      "highway": "footway",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 77,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "Route du Fort",
+      "metres": 250,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Route du Fort",
+      "metres": 250,
+      "highway": "footway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 16,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 25,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 16,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 29,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 6,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 7,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 6,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 7,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 7,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 6,
+      "highway": "footway",
+      "tunnel": "building_passage",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 12,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 10,
+      "highway": "service",
+      "tunnel": "building_passage",
+      "layer": null
+    },
+    {
+      "name": "Esplanade Underpass",
+      "metres": 32,
+      "highway": "unclassified",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "Corbi\u00e8re Railway Walk",
+      "metres": 12,
+      "highway": "cycleway",
+      "tunnel": "yes",
+      "layer": "-1"
+    },
+    {
+      "name": "(unnamed)",
+      "metres": 32,
+      "highway": "service",
+      "tunnel": "yes",
+      "layer": "-1"
+    }
+  ],
+  "underground_evidence": {
+    "military=bunker": 325,
+    "building=bunker": 59,
+    "historic=bunker": 13,
+    "historic=fort": 8,
+    "natural=cave_entrance": 7,
+    "historic=battery": 2
+  },
+  "area_km2": 118.2,
+  "tunnel_per_km2": 0.017
+}

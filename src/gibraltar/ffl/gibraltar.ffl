@@ -1,36 +1,47 @@
-/** The Hollow Mountain — measuring what OpenStreetMap cannot see.
+/** Measuring what OpenStreetMap cannot see.
   *
-  * Gibraltar holds roughly 55 km of tunnels inside a 6.7 km² rock, cut between
-  * 1782 and 1967. Almost all of it is military and sealed, so a public map
-  * cannot hold it — and because the true length is PUBLISHED, the omission can
-  * be measured rather than guessed at.
+  * Two territories whose underground is far larger than their surface, and
+  * which differ in the way that decides what a measurement can say.
   *
-  * That inverts the usual shape of an OSM workflow. Every other map in this
-  * fleet renders what OSM contains; this one renders what it is missing, in the
-  * one territory small enough and documented enough for the missing part to be
-  * bounded. Sources for every published figure: docs/sources.md.
+  * GIBRALTAR has roughly 55 km of tunnels inside a 6.7 km² rock, cut between
+  * 1782 and 1967, almost all military and sealed. The true length is PUBLISHED,
+  * so the omission can be measured rather than guessed at: OSM holds 12%.
   *
-  * The whole survey reads a 1 MB extract from the local planet split — no
-  * Overpass, no rate limit, no network at measurement time.
+  * JERSEY has no such figure. The German occupation drove tunnel complexes into
+  * the island with forced labour from 1941, and destroyed the records before the
+  * May 1945 surrender — so not even the NUMBER of complexes is known (19-25 were
+  * planned). There is no denominator, and inventing one would be the only way to
+  * produce a percentage.
+  *
+  * That is why `mapped_pct` is not a return of `Survey`. A field that cannot
+  * exist for some inputs has no business in a signature that promises it for
+  * all of them; the caller gets `has_denominator` and the full `stats`, and
+  * `summary` states in words what this place supports. Sources for every
+  * published figure: docs/sources.md.
+  *
+  * Both surveys read a small extract from the local planet split — no Overpass,
+  * no rate limit, no network at measurement time.
   */
 namespace gibraltar {
 
-    /** Measure the mapped network, the mapped tunnels, and the surface evidence
-      * of the rest (cave entrances, bunkers, batteries).
+    /** Measure one place's mapped network, its mapped tunnels, and the surface
+      * evidence of the rest (cave entrances, bunkers, batteries).
       *
-      * `pbf` empty resolves `europe/gibraltar-latest.osm.pbf` from
-      * FW_OSM_LOCAL_EXTRACTS. Returns both the statistics and the geometry, so
-      * the render step needs no second pass over the extract. */
+      * `place` selects the published ground truth to compare against, and with
+      * `pbf` empty also resolves the extract from FW_OSM_LOCAL_EXTRACTS.
+      * Returns the geometry as well as the statistics, so the render step needs
+      * no second pass over the extract. */
     event facet Survey(
+        place: String = "gibraltar",
         pbf: String = "",
         out_dir: String = "gibraltar-out"
     ) => (
         stats_path: String,
+        place_name: String,
         tunnel_km: Double,
-        mapped_pct: Double,
-        unmapped_km: Double,
-        public_road_km: Double,
-        osm_vs_official_roads: Double,
+        tunnel_km_distinct: Double,
+        has_denominator: Boolean,
+        summary: String,
         feature_count: Int,
         stats: Json,
         features: Json
@@ -40,29 +51,30 @@ namespace gibraltar {
       *
       * Deliberate. The subject is an ABSENCE; a page that needed a basemap to be
       * legible would be leaning on someone else's data at the exact moment it
-      * claims a gap. */
+      * claims a gap. The page adapts to whether the place has a denominator. */
     event facet RenderMap(
         stats: Json,
         features: Json,
         out_dir: String = "gibraltar-out",
-        title: String = "The Hollow Mountain"
+        title: String = ""
     ) => (
         map_path: String,
         feature_count: Int
     ) with Effect(kind = "io") with Cost(tier = "cheap")
 
-    /** Survey then draw. */
-    workflow HollowMountain(
+    /** Survey one place, then draw it. */
+    workflow TunnelSurvey(
+        place: String = "gibraltar",
         pbf: String = "",
         out_dir: String = "gibraltar-out",
-        title: String = "The Hollow Mountain"
+        title: String = ""
     ) => (
         map_path: String,
         stats_path: String,
-        mapped_pct: Double,
-        unmapped_km: Double
+        place_name: String,
+        summary: String
     ) andThen {
-        surveyed = Survey(pbf = $.pbf, out_dir = $.out_dir)
+        surveyed = Survey(place = $.place, pbf = $.pbf, out_dir = $.out_dir)
 
         drawn = RenderMap(
             stats = surveyed.stats,
@@ -71,11 +83,48 @@ namespace gibraltar {
             title = $.title
         )
 
-        yield HollowMountain(
+        yield TunnelSurvey(
             map_path = drawn.map_path,
             stats_path = surveyed.stats_path,
-            mapped_pct = surveyed.mapped_pct,
-            unmapped_km = surveyed.unmapped_km
+            place_name = surveyed.place_name,
+            summary = surveyed.summary
+        )
+    }
+
+    /** Gibraltar: the case WITH a published denominator. */
+    workflow HollowMountain(
+        pbf: String = "",
+        out_dir: String = "gibraltar-out"
+    ) => (
+        map_path: String,
+        stats_path: String,
+        summary: String
+    ) andThen {
+        run = TunnelSurvey(place = "gibraltar", pbf = $.pbf, out_dir = $.out_dir)
+
+        yield HollowMountain(
+            map_path = run.map_path,
+            stats_path = run.stats_path,
+            summary = run.summary
+        )
+    }
+
+    /** Jersey: the case WITHOUT one — where the size of the gap is itself
+      * unrecoverable, because the records were destroyed in 1945. */
+    workflow OccupiedIsland(
+        pbf: String = "",
+        out_dir: String = "jersey-out"
+    ) => (
+        map_path: String,
+        stats_path: String,
+        summary: String
+    ) andThen {
+        run = TunnelSurvey(place = "jersey", pbf = $.pbf, out_dir = $.out_dir)
+
+        yield OccupiedIsland(
+            map_path = run.map_path,
+            stats_path = run.stats_path,
+            summary = run.summary
         )
     }
 }
