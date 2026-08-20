@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 from pathlib import Path
 
@@ -179,9 +180,15 @@ def test_representative_point_of_a_polygon():
     assert -5.35 <= pt["coordinates"][0] <= -5.34
 
 
-def test_render_is_self_contained(tmp_path):
-    """No CDN, no tile server: the subject is an absence, and a page that needed
-    someone else's basemap to be legible would undercut the claim."""
+def test_render_makes_no_request_on_load(tmp_path):
+    """The page must open, render and read with NO network.
+
+    This used to be "no tile server at all", and the street-basemap mode
+    relaxed it — so the invariant is now the narrower, checkable one: nothing is
+    FETCHED until a reader asks for tiles. No external script or stylesheet, and
+    every tile carries `data-src`, never `src`. A page about an absence must not
+    depend on someone else's data to be legible.
+    """
     stats = smod.Survey(tunnel_km=6.63, km_by_class={"primary": 8.47}).as_dict()
     feats = [
         {"type": "Feature", "properties": {"kind": "road", "highway": "primary"},
@@ -194,10 +201,52 @@ def test_render_is_self_contained(tmp_path):
     ]
     out = rmod.render(stats, feats, str(tmp_path / "m.html"))
     doc = Path(out).read_text()
-    for bad in ("http://", "https://cdn", "<script", "src="):
+    for bad in ("<script src", "<link ", "@import", "http://"):
         assert bad not in doc, f"page reaches outside itself: {bad}"
+    assert not re.search(r'\ssrc\s*=\s*["\']https?://', doc), \
+        "something is fetched eagerly; tiles must stay on data-src until asked"
     assert "<polyline" in doc and "<circle" in doc
     assert "Admiralty tunnel" in doc
+
+
+def test_the_basemap_is_opt_in(tmp_path):
+    """Three backgrounds, and only the third one costs a request."""
+    stats = smod.Survey(tunnel_km=6.63, km_by_class={"primary": 8.47}).as_dict()
+    feats = [{"type": "Feature", "properties": {"kind": "road", "highway": "primary"},
+              "geometry": {"type": "LineString",
+                           "coordinates": [[-5.35, 36.13], [-5.34, 36.15]]}}]
+    doc = Path(rmod.render(stats, feats, str(tmp_path / "m.html"))).read_text()
+    for mode in ("dark", "light", "streets"):
+        assert f'data-mode="{mode}"' in doc
+    assert 'data-src="https://tile.openstreetmap.org/' in doc
+    # A remembered "streets" would fetch tiles before this visit's reader asked.
+    assert "if (saved === 'light')" in rmod.TOGGLE_SCRIPT
+    assert "openstreetmap.org/copyright" in doc, "tiles require attribution"
+
+
+def test_the_tile_grid_shares_the_geometry_coordinate_frame():
+    """The basemap is only worth having if it lines up.
+
+    Tiles are Web Mercator, so the geometry must be too — otherwise a tunnel
+    slides off its portal, which is exactly the error a reader would notice.
+    Every point must land inside its own tile's placed box, at the fraction
+    across it that the slippy-map maths predicts.
+    """
+    pts = [[-5.3550, 36.1100], [-5.3400, 36.1500], [-5.3380, 36.1425]]
+    feats = [{"type": "Feature", "properties": {"kind": "road", "highway": "primary"},
+              "geometry": {"type": "LineString", "coordinates": pts}}]
+    to_xy, _H, t = rmod._project(feats)
+    n = t["n"]
+    for lon, lat in pts:
+        px, py = to_xy(lon, lat)
+        mx, my = rmod._merc(lon, lat)
+        tx, ty = int(mx * n), int(my * n)
+        assert t["x0"] <= tx <= t["x1"] and t["y0"] <= ty <= t["y1"], "tile not emitted"
+        left = t["ox"] + (tx / n - t["mx0"]) * t["s"]
+        top = t["oy"] + (ty / n - t["my0"]) * t["s"]
+        size = t["s"] / n
+        assert (px - left) / size == pytest.approx(mx * n - tx, abs=1e-9)
+        assert (py - top) / size == pytest.approx(my * n - ty, abs=1e-9)
 
 
 def test_render_escapes_names(tmp_path):

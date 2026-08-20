@@ -141,12 +141,6 @@ behaviours are pinned by tests.
 
 ## The maps
 
-`hollow-mountain.html` and `jersey.html` are **self-contained** — inline SVG, no
-CDN, no tile server, no JavaScript library. That is deliberate: the subject is an
-*absence*, and a page that needed someone else's basemap to be legible would be
-leaning on external data at the moment it claims a gap. They work offline,
-forever.
-
 Grey is mapped road, red is mapped tunnel, and the dots are where the
 underground reaches daylight — cave entrances, bunkers, batteries. On Gibraltar
 the red is what 12% looks like. On Jersey the purple is what an exhaustively
@@ -154,6 +148,29 @@ mapped surface looks like over an unmapped, unmeasurable underneath.
 
 The canvas follows the data: Gibraltar is 1.5 × 5 km and renders portrait,
 Jersey 14 × 8 km and renders landscape.
+
+### Three backgrounds, and only one of them costs a request
+
+**Dark** (default) and **light** are pure CSS over the same inline SVG — no CDN,
+no external stylesheet, no JavaScript library. The page opens, renders and reads
+with **no network at all**, which matters more than usual here: a map whose
+subject is an *absence* should not need someone else's data to be legible.
+
+**Street map** is the one concession, so it is opt-in. Every tile carries
+`data-src`, never `src`, and nothing is requested until a reader clicks that
+mode. A saved preference restores light but never streets, so a return visit
+cannot fetch tiles unasked. In that mode the basemap draws the roads, so ours
+drop to 12% opacity and the tunnels take a white casing — the tiles are the
+context, the tunnels stay the subject.
+
+That mode is why the projection is **Web Mercator**. It replaced a local
+equirectangular projection, which was fine on its own but would have slid the
+geometry against the tiles beneath it — a tunnel no longer meeting its portal is
+exactly the error a reader notices. A test pins every point to land inside its
+own tile at the fraction across it the slippy-map maths predicts (worst
+observed error: 1e-15).
+
+Basemap tiles come from openstreetmap.org and are attributed on the page.
 
 ## How it runs
 
@@ -184,12 +201,12 @@ result — except in Jersey's sense, where the absence is sourced too.
 ## Tests
 
 ```bash
-FW_OSM_LOCAL_EXTRACTS=/path/to/extracts python -m pytest tests -q   # 17 tests
+FW_OSM_LOCAL_EXTRACTS=/path/to/extracts python -m pytest tests -q   # 19 tests
 ```
 
 The classification, the geodesic assumption, the pavement rule, the escaping,
-the self-containment, and above all **the refusal to invent a denominator** are
-pinned. Tests needing a real extract skip themselves without one.
+the tile alignment, the fact that **nothing is fetched on load**, and above all
+**the refusal to invent a denominator** are pinned. Tests needing a real extract skip themselves without one.
 
 ## Licence
 

@@ -158,6 +158,11 @@ OpenStreetMap contributors, ODbL. Read from a **locally hosted extract**
 planet split — no Overpass call, no rate limit, no upstream dependency at
 measurement time.
 
+The optional street-basemap mode fetches XYZ tiles from
+**openstreetmap.org**, attributed on the page per the
+[copyright terms](https://www.openstreetmap.org/copyright). Nothing is requested
+unless a reader selects that mode; the dark and light backgrounds use no network.
+
 ## A measurement caveat, recorded
 
 OSM's 1.97 km of Jersey tunnel way includes **Route du Fort three times**: a
