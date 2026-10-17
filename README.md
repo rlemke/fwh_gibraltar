@@ -7,8 +7,8 @@ differ in the one way that decides what a measurement is allowed to say.
 |---|---|---|
 | area | 6.7 km² | 118.2 km² |
 | tunnels, **published** | **55 km** | **no total exists** |
-| tunnels, in OSM | 6.63 km | 1.97 km (1.47 km of distinct bore) |
-| what can be said | OSM holds **12%** | **nothing can be said** — see below |
+| tunnels, in OSM | 6.06 km | 1.97 km (1.47 km of distinct bore) |
+| what can be said | OSM holds **11%** | **nothing can be said** — see below |
 
 Gibraltar is the rare place where OSM's *omission* is bounded: the true length
 is published, so the gap can be measured rather than guessed at. Jersey is the
@@ -30,26 +30,32 @@ src/gibraltar/tools/survey-gibraltar.sh --place jersey -o out/
 | | |
 |---|---|
 | tunnels, published | **55.00 km** |
-| tunnels, in OSM | **6.63 km** |
-| **mapped** | **12.0%** |
-| not in OSM | 48.40 km |
+| tunnels, in OSM | **6.06 km** |
+| **mapped** | **11.0%** |
+| not in OSM | 48.90 km |
 | public road, official | 29.00 km |
-| public road, in OSM | 65.66 km (**2.26×**) |
-| mapped tunnel ways | 107 of 2,565 highway ways |
-| surface evidence | 84 forts · 28 cave entrances · 19 bunkers |
+| public road, in OSM | 57.21 km (**1.97×**) |
+| mapped tunnel ways | 82 of 2,167 highway ways |
+| surface evidence | 84 forts · 28 cave entrances · 27 bunkers |
 
-Longest mapped tunnels: **Admiralty tunnel 957 m**, Dudley Ward Way 693 m,
-Ragged Staff Magazine 659 m, Keightley Way 405 m, Kingsway Tunnel (3 ways,
-997 m combined).
+Figures from the 2026-09-30 extract. An earlier version of this page reported
+65.66 km of road (2.26×) and 6.63 km of tunnel from an extract that reached
+beyond the territory; the survey counts every way in the extract it is given,
+so the extract must be cut to Gibraltar's boundary (clipping today's to the
+admin_level=2 land polygon changes nothing).
+
+Longest mapped tunnels: **Kingsway Tunnel (5 ways, 1,037 m combined)**,
+Admiralty tunnel 957 m, Dudley Ward Way 693 m, Ragged Staff Magazine 659 m,
+Keightley Way 405 m.
 
 ### Two gaps, in opposite directions
 
 OSM is *both* far short and far over, and neither is sloppiness — both are
 definitional.
 
-- **Tunnels: OSM has 12%.** The missing 48 km is classified, sealed, or both.
-- **Roads: OSM has 2.26× the official figure.** Gibraltar's published road
-  network is 29 km; OSM maps 65.66 km of public road, and 140.91 km if you count
+- **Tunnels: OSM has 11%.** The missing 49 km is classified, sealed, or both.
+- **Roads: OSM has 1.97× the official figure.** Gibraltar's published road
+  network is 29 km; OSM maps 57.21 km of public road, and 121.05 km if you count
   service ways. OSM counts both carriageways, estate access and car parks; a
   national road statistic does not.
 
@@ -107,8 +113,8 @@ in a signature that promises it for all of them, so callers get
 | less shared bores | **1.47 km** |
 | of which Ho8 | **522 m** |
 | bunkers, in OSM | **397** |
-| road, in OSM | 945.58 km |
-| tunnel per km² | 0.017 (Gibraltar: 0.99) |
+| road, in OSM | 946.51 km |
+| tunnel per km² | 0.017 (Gibraltar: 0.90) |
 
 **The surface is mapped exhaustively and the underground barely at all.** OSM
 holds 325 `military=bunker`, 59 `building=bunker` and 13 `historic=bunker`,
@@ -143,7 +149,7 @@ behaviours are pinned by tests.
 
 Grey is mapped road, red is mapped tunnel, and the dots are where the
 underground reaches daylight — cave entrances, bunkers, batteries. On Gibraltar
-the red is what 12% looks like. On Jersey the purple is what an exhaustively
+the red is what 11% looks like. On Jersey the purple is what an exhaustively
 mapped surface looks like over an unmapped, unmeasurable underneath.
 
 The canvas follows the data: Gibraltar is 1.5 × 5 km and renders portrait,

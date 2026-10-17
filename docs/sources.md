@@ -19,7 +19,7 @@ Links were retrieved 2026-08-19 (Gibraltar) and 2026-08-20 (Jersey).
 
 | | |
 |---|---|
-| used for | `TUNNEL_KM_PUBLISHED = 55.0`, the denominator of the 12% figure |
+| used for | `TUNNEL_KM_PUBLISHED = 55.0`, the denominator of the 11% figure |
 | source | [Tunnels of Gibraltar — Wikipedia](https://en.wikipedia.org/wiki/Tunnels_of_Gibraltar) |
 | quote | "Gibraltar has around 34 miles (55 km) of tunnels" within an area of only 2.6 square miles |
 
@@ -33,13 +33,13 @@ so it does not change the conclusion.
 
 | | |
 |---|---|
-| used for | `ROAD_KM_OFFICIAL = 29.0`, and the claim that OSM holds 2.26× it |
+| used for | `ROAD_KM_OFFICIAL = 29.0`, and the claim that OSM holds 1.97× it |
 | figure | 29 km (18 mi) of roads, as of 2007 — the smallest road network on the continent |
 
 This is the number the well-known comparison rests on. Wikipedia states the
 tunnels are *"nearly twice the length of its entire road network"*, and 55 ÷ 29 =
 **1.90**, so the claim is consistent with the official statistic. It is **not**
-consistent with OSM, which maps 65.66 km of public road (and 140.91 km including
+consistent with OSM, which maps 57.21 km of public road (and 121.05 km including
 service ways) — see the README for why both are correct.
 
 ## The tunnelling itself
