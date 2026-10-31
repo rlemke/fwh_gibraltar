@@ -6,7 +6,7 @@ the part that decides what a result can even say. Two places, and they differ in
 the way that matters most:
 
 **Gibraltar has a denominator.** ~55 km of tunnel is published, so "OSM holds
-12% of it" is a computable statement.
+11% of it" is a computable statement.
 
 **Jersey does not.** The Germans destroyed the primary records before the May
 1945 surrender, so not even the *number* of tunnel complexes is known — Wikipedia

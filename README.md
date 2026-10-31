@@ -23,6 +23,24 @@ fw ffl run src/gibraltar/ffl/gibraltar.ffl --workflow gibraltar.OccupiedIsland
 src/gibraltar/tools/survey-gibraltar.sh --place jersey -o out/
 ```
 
+## FFL at a glance
+
+```ffl
+namespace demo {
+    use gibraltar
+
+    workflow Headline(place: String = "jersey") => (summary: String, comparable: Boolean) andThen {
+        s = Survey(place = $.place)
+        m = RenderMap(stats = s.stats, features = s.features)
+        yield Headline(summary = s.summary, comparable = s.has_denominator)
+    }
+}
+```
+
+There is no `mapped_pct` to read — `has_denominator` says whether a percentage
+can exist for this place at all, and `summary` says what can. Full gallery:
+[`docs/ffl-examples.md`](docs/ffl-examples.md).
+
 ---
 
 ## Gibraltar — *The Hollow Mountain*

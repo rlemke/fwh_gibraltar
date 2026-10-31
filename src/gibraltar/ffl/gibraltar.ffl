@@ -5,7 +5,7 @@
   *
   * GIBRALTAR has roughly 55 km of tunnels inside a 6.7 km² rock, cut between
   * 1782 and 1967, almost all military and sealed. The true length is PUBLISHED,
-  * so the omission can be measured rather than guessed at: OSM holds 12%.
+  * so the omission can be measured rather than guessed at: OSM holds 11%.
   *
   * JERSEY has no such figure. The German occupation drove tunnel complexes into
   * the island with forced labour from 1941, and destroyed the records before the
@@ -47,7 +47,9 @@ namespace gibraltar {
         features: Json
     ) with Effect(kind = "io") with Cost(tier = "cheap")
 
-    /** Draw it: a self-contained page — inline SVG, no CDN, no tile server.
+    /** Draw it: a self-contained page — inline SVG, no CDN. A street-map
+      * background is available but opt-in: no tile is requested until the
+      * reader picks that mode.
       *
       * Deliberate. The subject is an ABSENCE; a page that needed a basemap to be
       * legible would be leaning on someone else's data at the exact moment it
